@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoAppController {
   @GetMapping
   public String hello() {
-    return "Hello javaTpoint";
+    return "Hello merge request";
   }
 }
