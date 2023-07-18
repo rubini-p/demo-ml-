@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teamcity-server-deployment
+  labels:
+    app: teamcity-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teamcity-server
+  template:
+    metadata:
+      labels:
+        app: teamcity-server
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
+      containers:
+      - name: tc-server
+        image: jetbrains/teamcity-server
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8111
+        volumeMounts:
+          - name: teamcity-persistent-storage
+            mountPath: /data/teamcity_server/datadir
+        resources:
+          requests:
+            memory: "500Mi"
+            cpu: "0.5"
+          limits:
+            memory: "4Gi"
+            cpu: "2"
+      volumes:
+        - name: teamcity-persistent-storage
+          persistentVolumeClaim:
+            claimName: teamcity-server-pvc
