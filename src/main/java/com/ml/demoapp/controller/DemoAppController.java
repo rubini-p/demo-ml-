@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoAppController {
   @GetMapping
   public String hello() {
-    return "Hello merge request";
+    return "Hello merge request2";
   }
 }
